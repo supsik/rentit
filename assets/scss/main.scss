@@ -1,2 +1,11 @@
 @use './fonts.scss';
 @use './normalize.scss';
+@use './variables.scss';
+
+p,
+div,
+span,
+a,
+h2 { font-family: 'Golos' }
+
+input { font-family: 'Inter' }
