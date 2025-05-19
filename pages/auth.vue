@@ -33,14 +33,24 @@
             />
           </div>
         </div>
-        <button class="auth-form__button" @click.prevent>Вход</button>
+        <button class="auth-form__button" @click.prevent="checkValidate()">Вход</button>
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
+const { $toast } = useNuxtApp()
+
 const phoneValue = ref("");
+const phonePattern = /^\d{3} \d{3}-\d{2}-\d{2}$/;
+
+const checkValidate = () => {
+  const phone = `7${phoneValue.value.replace(/[\s-]/g, '')}`
+
+  if (phone.length < 11)
+    $toast['error']('Введён некорректный номер телефона')
+}
 </script>
 
 <style lang="scss" scoped>

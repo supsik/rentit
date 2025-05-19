@@ -1,0 +1,26 @@
+.v-toast {
+  padding-inline: 20px;
+
+  .v-toast__text {
+    padding: 0;
+  }
+}
+
+.v-toast__item {
+  display: flex;
+  gap: 15px;
+  padding: 14px 25px 14px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  min-width: unset;
+  min-height: unset;
+
+  .v-toast__icon {
+    min-width: unset;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+  }
+
+  &--error { background-color: $main-blue }
+}

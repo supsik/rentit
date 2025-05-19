@@ -5,9 +5,14 @@
   box-sizing: border-box;
 }
 
-input:disabled {
-  color: inherit;
-  background-color: #FFF;
+input
+{
+  &:focus { outline: none }
+
+  &:disabled {
+    color: inherit;
+    background-color: #FFF;
+  }
 }
 
-input:focus { outline: none; }
+button { &:hover { cursor: pointer }}
