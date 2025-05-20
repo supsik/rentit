@@ -14,7 +14,7 @@
 				v-model:phone="phoneValue"
 				:is="authSteps[currentStep]"
 				:key="currentStep"
-				@checkValidate="checkValidate"	
+				@showError="showError"	
 				@chooseStep="chooseStep"
 			/>
 		</div>
@@ -33,12 +33,8 @@ const authSteps			= ref([
 
 const chooseStep = val => currentStep.value += val
 
-const checkValidate = () => {
-	const phone = `7${phoneValue.value.replace(/[\s-]/g, '')}`
-
-	phone.length < 11 ?
-		$toast['error']('Введён некорректный номер телефона') :
-		chooseStep(1)
+const showError = error => {
+	$toast['error'](error)
 }
 </script>
 

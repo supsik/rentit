@@ -4,35 +4,60 @@
 		<div class="code-form__content">
 			<label class="code-input__label">Введите код отправленный <br> на номер {{phoneValue}}</label>
 			<div class="code-inputs-wr">
-				<input type="text" class="code-input">
-				<input type="text" class="code-input">
-				<input type="text" class="code-input">
-				<input type="text" class="code-input">
+				<input
+					class="code-input"
+					type="text"
+					ref="inputField"
+					v-for="(el, i) in inputCode"
+					:key="i"
+					:value="el"
+					@focus="inputCode[i] = ''; currentInput = i"
+					@input.prevent="changeInput($event)"
+					@keydown.delete="currentInput > 0 ? currentInput-- : null"
+				>
 			</div>
-			<div @click="resendCode" class="code-form__resend-code">Отправить снова смс</div>
-			<button class="code-form__button" @click.prevent="checkCode">Подтвердить</button>
+			<div class="code-form__resend-code">Отправить снова смс</div>
+			<button @click.prevent="checkCode" class="code-form__button">Подтвердить</button>
 			<span @click="$emit('chooseStep', -1)" class="code-form__return">Вернуться назад к вводу номера</span>
 		</div>
 	</form>
 </template>
 
 <script setup>
-const phoneValue = defineModel('phone')
-const testCode = '1223'
+const emit 					= defineEmits(['showError'])
+const inputCode 		= ref(['', '', '', ''])
+const phoneValue 		= defineModel('phone')
+const inputField 		= ref([])
+const currentInput 	= ref(0)
+const testCode 			= '1234' // devTest
 
-const resendCode = () => {
-	console.log('test')
+const changeInput = event => {
+	currentInput.value = inputField.value.indexOf(event.target)
+
+	if (event.inputType == 'insertText' && /[0-9]/.test(event.data))
+	{
+		inputCode.value[currentInput.value] = event.data
+		currentInput.value++
+	} else if (event.inputType == 'insertFromPaste' && /^\d{1,4}$/.test(event.data)) {
+		const inputVal = event.data.split('')
+		inputVal.forEach((element, i) => {
+			inputCode.value[i] = element
+			currentInput.value = i + 1
+		});
+	} else
+		inputField.value[currentInput.value].value = ''
 }
 
 const checkCode = () => {
-	console.log('test')
+	if (inputCode.value.some(el => el == '') || inputCode.value.join('') != testCode)
+		emit('showError', 'Введен некорректный код')
 }
 
-onMounted(() => {
-	const inputArray = Array.from(document.querySelectorAll('.code-input'))
-	inputArray.forEach(el => el.addEventListener('input', el => {
-		
-	}))
+watch(currentInput, (newVal, oldVal) => {
+	if (newVal <= inputField.value.length - 1)
+		inputField.value[newVal]?.focus()
+	else
+		inputField.value.map(el => el.blur())	
 })
 </script>
 

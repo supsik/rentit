@@ -10,12 +10,22 @@
 				<IconsClose v-if="phoneValue" class="input-clear" @click="phoneValue = ''" />
 			</div>
 		</div>
-		<button class="number-form__button" @click.prevent="$emit('checkValidate')">Вход</button>
+		<button class="number-form__button" @click.prevent="checkValidate">Вход</button>
 	</form>
 </template>
 
 <script setup>
 const phoneValue = defineModel('phone')
+const emit = defineEmits(['showError', 'chooseStep'])
+
+const checkValidate = () => {
+	const phone = `7${phoneValue.value.replace(/[\s-]/g, '')}`
+
+	if (phone.length < 11)
+		emit('showError', 'Вы ввели неверный номер')
+	else
+		emit('chooseStep', 1)
+}
 </script>
 
 <style lang='scss'>
