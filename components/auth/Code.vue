@@ -4,10 +4,10 @@
 		<div class="code-form__content">
 			<label class="code-input__label">Введите код отправленный <br> на номер {{phoneValue}}</label>
 			<div class="code-inputs-wr">
-				<input type="text">
-				<input type="text">
-				<input type="text">
-				<input type="text">
+				<input type="text" class="code-input">
+				<input type="text" class="code-input">
+				<input type="text" class="code-input">
+				<input type="text" class="code-input">
 			</div>
 			<div @click="resendCode" class="code-form__resend-code">Отправить снова смс</div>
 			<button class="code-form__button" @click.prevent="checkCode">Подтвердить</button>
@@ -18,6 +18,7 @@
 
 <script setup>
 const phoneValue = defineModel('phone')
+const testCode = '1223'
 
 const resendCode = () => {
 	console.log('test')
@@ -26,6 +27,13 @@ const resendCode = () => {
 const checkCode = () => {
 	console.log('test')
 }
+
+onMounted(() => {
+	const inputArray = Array.from(document.querySelectorAll('.code-input'))
+	inputArray.forEach(el => el.addEventListener('input', el => {
+		
+	}))
+})
 </script>
 
 <style lang='scss'>
