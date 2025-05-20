@@ -15,6 +15,7 @@
 				:is="authSteps[currentStep]"
 				:key="currentStep"
 				@checkValidate="checkValidate"	
+				@chooseStep="chooseStep"
 			/>
 		</div>
 	</div>
@@ -30,21 +31,15 @@ const authSteps			= ref([
 	markRaw(resolveComponent('AuthCode')),
 ])
 
-const nextStep = () => {
-	currentStep.value++
-}
+const chooseStep = val => currentStep.value += val
 
 const checkValidate = () => {
 	const phone = `7${phoneValue.value.replace(/[\s-]/g, '')}`
 
 	phone.length < 11 ?
 		$toast['error']('Введён некорректный номер телефона') :
-		nextStep()
+		chooseStep(1)
 }
-
-onMounted(()=>{
-	console.log(markRaw(resolveComponent('AuthNumberForm')))
-})
 </script>
 
 <style lang="scss" scoped>
