@@ -10,8 +10,10 @@
 				<p>Наведите порядок в делах, экономьте время и зарабатывайте больше денег</p>
 			</div>
 			<component
+				class="auth-form"
 				v-model:phone="phoneValue"
 				:is="authSteps[currentStep]"
+				:key="currentStep"
 				@checkValidate="checkValidate"	
 			/>
 		</div>
@@ -39,6 +41,10 @@ const checkValidate = () => {
 		$toast['error']('Введён некорректный номер телефона') :
 		nextStep()
 }
+
+onMounted(()=>{
+	console.log(markRaw(resolveComponent('AuthNumberForm')))
+})
 </script>
 
 <style lang="scss" scoped>
@@ -83,6 +89,14 @@ const checkValidate = () => {
 		font-family: "Golos-SemiBold";
 		font-size: 13px;
 	}
+}
+
+.auth-form {
+	position: relative;
+	right: 32px;
+	top: -42px;
+	width: 100%;
+	max-width: 310px;
 }
 
 .auth__content {

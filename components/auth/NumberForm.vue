@@ -1,19 +1,17 @@
 <template>
-	<template>
-		<form class="auth-form">
-			<h2>Войти</h2>
-			<div class="auth-form__content">
-				<label for="number-input" class="number-input__label">Телефон</label>
-				<div class="auth-form__input-box">
-					<input type="text" class="country-code" value="+7" disabled />
-					<input v-maska v-model="phoneValue" data-maska="### ###-##-##" type="text" class="number-input"
-						id="number-input" ref="phone" />
-					<IconsClose v-if="phoneValue" class="input-clear" @click="phoneValue = ''" />
-				</div>
+	<form class="number-form">
+		<h2>Войти</h2>
+		<div class="number-form__content">
+			<label for="number-input" class="number-input__label">Телефон</label>
+			<div class="number-form__input-box">
+				<input type="text" class="country-code" value="+7" disabled />
+				<input v-maska v-model="phoneValue" data-maska="### ###-##-##" type="text" class="number-input"
+					id="number-input" ref="phone" />
+				<IconsClose v-if="phoneValue" class="input-clear" @click="phoneValue = ''" />
 			</div>
-			<button class="auth-form__button" @click.prevent="$emit('checkValidate')">Вход</button>
-		</form>
-	</template>
+		</div>
+		<button class="number-form__button" @click.prevent="$emit('checkValidate')">Вход</button>
+	</form>
 </template>
 
 <script setup>
@@ -21,22 +19,14 @@ const phoneValue = defineModel('phone')
 </script>
 
 <style lang='scss'>
-.auth-form {
-	position: relative;
-	right: 32px;
-	top: -42px;
-	width: 100%;
-	max-width: 310px;
-
+.number-form {
 	h2 {
 		font-family: "Golos-SemiBold";
 		font-size: 32px;
 		text-transform: uppercase;
 	}
 
-	&__content {
-		margin-top: 12px;
-	}
+	&__content { margin-top: 12px }
 
 	&__input-box {
 		position: relative;
@@ -51,9 +41,7 @@ const phoneValue = defineModel('phone')
 			border-radius: 6px;
 			padding: 16px 24px;
 
-			&.country-code {
-				max-width: 70px
-			}
+			&.country-code { max-width: 70px }
 		}
 	}
 
@@ -69,9 +57,7 @@ const phoneValue = defineModel('phone')
 		font-family: "Golos-SemiBold";
 	}
 
-	.number-input__label {
-		font-size: 14px;
-	}
+	.number-input__label { font-size: 14px }
 
 	.input-clear {
 		cursor: pointer;
